@@ -51,11 +51,6 @@ public class AntiAdveritser extends Plugin {
                 ByteStreams.copy(in, out);
             }
             tlds = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(getDataFolder(), "tlds.yml"));
-        } catch (IOException ioe) {
-            getLogger().severe("An error occurred trying to load the TLDs, AntiAdvertiser will not function!");
-            ioe.printStackTrace();
-        }
-        try { // Different try/catch so that if one fails, the other one doesn't
             if (!configFile.exists()) {
                 configFile.createNewFile();
                 InputStream in = getResourceAsStream("config.yml");
