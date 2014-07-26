@@ -18,13 +18,30 @@
 
 package pw.deprecatednether.antiadvertiser.bungee.listeners;
 
+import net.md_5.bungee.api.connection.ProxiedPlayer;
+import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.plugin.Listener;
+import net.md_5.bungee.event.EventHandler;
 import pw.deprecatednether.antiadvertiser.bungee.AntiAdveritser;
+import pw.deprecatednether.antiadvertiser.bungee.util.AdvertiserMethods;
 
 public class AdvertiseListener implements Listener {
     private AntiAdveritser main;
+    private AdvertiserMethods methods;
 
     public AdvertiseListener(AntiAdveritser main) {
         this.main = main;
+        this.methods = new AdvertiserMethods(main);
+    }
+
+    @EventHandler
+    public void chat(ChatEvent e) {
+        if (!main.getConfig().getBoolean("monitor.chat")) return;
+        if (!(e.getSender() instanceof ProxiedPlayer)) return;
+        ProxiedPlayer player = (ProxiedPlayer) e.getSender();
+        if (!methods.safeChat(player, e.getMessage())) {
+            // todo log message
+            e.setCancelled(true);
+        }
     }
 }
