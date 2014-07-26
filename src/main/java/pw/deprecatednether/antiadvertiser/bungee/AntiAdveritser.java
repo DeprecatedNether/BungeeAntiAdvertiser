@@ -19,11 +19,13 @@
 package pw.deprecatednether.antiadvertiser.bungee;
 
 import net.md_5.bungee.api.plugin.Plugin;
+import pw.deprecatednether.antiadvertiser.bungee.commands.ReloadCommand;
 import pw.deprecatednether.antiadvertiser.bungee.listeners.AdvertiseListener;
 
 public class AntiAdveritser extends Plugin {
     @Override
     public void onEnable() {
         this.getProxy().getPluginManager().registerListener(this, new AdvertiseListener(this));
+        this.getProxy().getPluginManager().registerCommand(this, new ReloadCommand(this));
     }
 }

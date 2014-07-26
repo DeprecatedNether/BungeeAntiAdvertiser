@@ -18,5 +18,19 @@
 
 package pw.deprecatednether.antiadvertiser.bungee.commands;
 
-public class ReloadCommand {
+import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.plugin.Command;
+import pw.deprecatednether.antiadvertiser.bungee.AntiAdveritser;
+
+public class ReloadCommand extends Command {
+    private AntiAdveritser main;
+
+    public ReloadCommand(AntiAdveritser main) {
+        super("aareload");
+    }
+
+    @Override
+    public void execute(CommandSender sender, String[] args) {
+
+    }
 }
