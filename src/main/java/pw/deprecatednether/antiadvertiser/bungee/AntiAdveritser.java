@@ -36,6 +36,7 @@ public class AntiAdveritser extends Plugin {
     private File detections;
     private Configuration tlds;
     private Configuration config;
+    private String tldRegex;
 
     @Override
     public void onEnable() {
@@ -98,5 +99,12 @@ public class AntiAdveritser extends Plugin {
                 return;
             }
         }
+        List<String> list = tlds.getStringList("tlds");
+        String regex = "";
+        for (String tld : list) {
+            if (regex.length() != 0) regex = regex + "|";
+            regex = regex + tld;
+        }
+        tldRegex = regex;
     }
 }
