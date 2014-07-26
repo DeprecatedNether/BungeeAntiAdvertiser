@@ -27,6 +27,10 @@ import pw.deprecatednether.antiadvertiser.bungee.commands.ReloadCommand;
 import pw.deprecatednether.antiadvertiser.bungee.listeners.AdvertiseListener;
 
 import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AntiAdveritser extends Plugin {
     private File detections;
@@ -61,6 +65,38 @@ public class AntiAdveritser extends Plugin {
         } catch (IOException ioe) {
             getLogger().severe("An error occurred trying to load the configuration file!");
             ioe.printStackTrace();
+        }
+    }
+
+    private void loadTLDs() {
+        if (tlds.get("last-check") == null || tlds.getLong("last-check") < (System.currentTimeMillis() / 1000 - (7*24*60*60))) {
+            if (config.getBoolean("update-tld-list")) {
+                getProxy().getScheduler().runAsync(this, new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            URL url = new URL("http://data.iana.org/TLD/tlds-alpha-by-domain.txt");
+                            URLConnection connection = url.openConnection();
+                            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                            String ln;
+                            List<String> list = new ArrayList<String>();
+                            while ((ln = in.readLine()) != null) {
+                                if (!ln.startsWith("#") && !ln.equals("")) {
+                                    list.add(ln);
+                                }
+                            }
+                            in.close();
+                            tlds.set("last-check", System.currentTimeMillis() / 1000);
+                            tlds.set("tlds", list);
+                            ConfigurationProvider.getProvider(YamlConfiguration.class).save(tlds, new File(getDataFolder(), "tlds.yml"));
+                            loadTLDs(); // call this again so they're loaded into memory
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                return;
+            }
         }
     }
 }
