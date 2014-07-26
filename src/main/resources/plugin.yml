@@ -1,0 +1,4 @@
+name: AntiAdvertiser
+main: pw.deprecatednether.antiadvertiser.bungee.AntiAdvertiser
+version: ${project.version}
+author: DeprecatedNether
