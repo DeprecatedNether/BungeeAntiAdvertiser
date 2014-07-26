@@ -22,9 +22,16 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
+import net.md_5.bungee.event.EventPriority;
 import pw.deprecatednether.antiadvertiser.bungee.AntiAdveritser;
 import pw.deprecatednether.antiadvertiser.bungee.api.PlayerAdvertiseEvent;
 import pw.deprecatednether.antiadvertiser.bungee.util.AdvertiserMethods;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class AdvertiseListener implements Listener {
     private AntiAdveritser main;
@@ -46,6 +53,21 @@ public class AdvertiseListener implements Listener {
             if (!event.isCancelled()) {
                 e.setCancelled(true);
             }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    public void advertise(PlayerAdvertiseEvent e) {
+        if (e.isCancelled()) return;
+        main.getLogger().info(e.getPlayer().getName() + " tried advertising: " + e.getMessage());
+        try {
+            FileWriter writer = new FileWriter(main.getDetectionsFile(), true);
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ");
+            writer.write("[" + format.format(new Date()) + "] " + e.getPlayer().getName() + " (" + e.getPlayer().getUniqueId() + "): " + e.getMessage() + "\n");
+            writer.flush();
+            writer.close();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
         }
     }
 }
