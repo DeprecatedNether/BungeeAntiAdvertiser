@@ -23,6 +23,7 @@ import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 import pw.deprecatednether.antiadvertiser.bungee.AntiAdveritser;
+import pw.deprecatednether.antiadvertiser.bungee.api.PlayerAdvertiseEvent;
 import pw.deprecatednether.antiadvertiser.bungee.util.AdvertiserMethods;
 
 public class AdvertiseListener implements Listener {
@@ -40,8 +41,11 @@ public class AdvertiseListener implements Listener {
         if (!(e.getSender() instanceof ProxiedPlayer)) return;
         ProxiedPlayer player = (ProxiedPlayer) e.getSender();
         if (!methods.safeChat(player, e.getMessage())) {
-            // todo log message
-            e.setCancelled(true);
+            PlayerAdvertiseEvent event = new PlayerAdvertiseEvent(player, e.getMessage());
+            main.getProxy().getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                e.setCancelled(true);
+            }
         }
     }
 }
