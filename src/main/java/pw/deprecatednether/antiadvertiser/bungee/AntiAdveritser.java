@@ -70,6 +70,12 @@ public class AntiAdveritser extends Plugin {
             ioe.printStackTrace();
         }
         loadTLDs();
+        try {
+            Metrics metrics = new Metrics(this);
+            metrics.start();
+        } catch (Exception e) {
+            getLogger().warning("Failed to start Metrics!");
+        }
     }
 
     private void loadTLDs() {
