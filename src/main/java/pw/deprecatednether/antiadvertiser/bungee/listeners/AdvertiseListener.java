@@ -18,5 +18,13 @@
 
 package pw.deprecatednether.antiadvertiser.bungee.listeners;
 
-public class AdvertiseListener {
+import net.md_5.bungee.api.plugin.Listener;
+import pw.deprecatednether.antiadvertiser.bungee.AntiAdveritser;
+
+public class AdvertiseListener implements Listener {
+    private AntiAdveritser main;
+
+    public AdvertiseListener(AntiAdveritser main) {
+        this.main = main;
+    }
 }
