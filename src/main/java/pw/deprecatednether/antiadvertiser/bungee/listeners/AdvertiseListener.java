@@ -69,5 +69,17 @@ public class AdvertiseListener implements Listener {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
+        String moderator = main.prepareString(main.getConfig().getString("messages.moderator-message"), e.getPlayer(), e.getMessage());
+        for (ProxiedPlayer player : main.getProxy().getPlayers()) {
+            if (player.hasPermission("antiadvertiser.notify")) {
+                player.sendMessage(moderator);
+            }
+        }
+
+        if (main.getConfig().getBoolean("on-detect.kick")) {
+            e.getPlayer().disconnect(main.getConfig().getString("messages.kick-message"));
+        } else {
+            e.getPlayer().sendMessage(main.getConfig().getString("messages.player-message"));
+        }
     }
 }
