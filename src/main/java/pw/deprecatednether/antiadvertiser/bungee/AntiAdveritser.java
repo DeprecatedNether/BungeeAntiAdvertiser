@@ -67,6 +67,7 @@ public class AntiAdveritser extends Plugin {
             getLogger().severe("An error occurred trying to load the configuration file!");
             ioe.printStackTrace();
         }
+        loadTLDs();
     }
 
     private void loadTLDs() {
