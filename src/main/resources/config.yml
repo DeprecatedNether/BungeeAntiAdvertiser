@@ -15,3 +15,5 @@ checks:
   ips: true
 monitor:
   chat: true
+debug: false
+update-tld-list: true
