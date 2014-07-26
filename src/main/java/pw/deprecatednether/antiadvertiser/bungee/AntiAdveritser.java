@@ -108,4 +108,16 @@ public class AntiAdveritser extends Plugin {
         }
         tldRegex = regex;
     }
+
+    public Configuration getConfig() {
+        return config;
+    }
+
+    public File getDetectionsFile() {
+        return detections;
+    }
+
+    public String getTldRegex() {
+        return tldRegex;
+    }
 }
