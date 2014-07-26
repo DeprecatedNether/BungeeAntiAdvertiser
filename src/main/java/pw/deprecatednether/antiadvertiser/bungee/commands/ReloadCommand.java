@@ -27,14 +27,14 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
-import pw.deprecatednether.antiadvertiser.bungee.AntiAdveritser;
+import pw.deprecatednether.antiadvertiser.bungee.AntiAdvertiser;
 
 import java.io.*;
 
 public class ReloadCommand extends Command {
-    private AntiAdveritser main;
+    private AntiAdvertiser main;
 
-    public ReloadCommand(AntiAdveritser main) {
+    public ReloadCommand(AntiAdvertiser main) {
         super("aareload");
     }
 

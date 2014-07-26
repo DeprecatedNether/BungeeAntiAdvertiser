@@ -34,7 +34,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AntiAdveritser extends Plugin {
+public class AntiAdvertiser extends Plugin {
     private File detections;
     private Configuration tlds;
     public Configuration config;

@@ -23,7 +23,7 @@ import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 import net.md_5.bungee.event.EventPriority;
-import pw.deprecatednether.antiadvertiser.bungee.AntiAdveritser;
+import pw.deprecatednether.antiadvertiser.bungee.AntiAdvertiser;
 import pw.deprecatednether.antiadvertiser.bungee.api.PlayerAdvertiseEvent;
 import pw.deprecatednether.antiadvertiser.bungee.util.AdvertiserMethods;
 
@@ -34,10 +34,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AdvertiseListener implements Listener {
-    private AntiAdveritser main;
+    private AntiAdvertiser main;
     private AdvertiserMethods methods;
 
-    public AdvertiseListener(AntiAdveritser main) {
+    public AdvertiseListener(AntiAdvertiser main) {
         this.main = main;
         this.methods = new AdvertiserMethods(main);
     }

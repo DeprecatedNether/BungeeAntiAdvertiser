@@ -19,15 +19,15 @@
 package pw.deprecatednether.antiadvertiser.bungee.util;
 
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import pw.deprecatednether.antiadvertiser.bungee.AntiAdveritser;
+import pw.deprecatednether.antiadvertiser.bungee.AntiAdvertiser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AdvertiserMethods {
-    private AntiAdveritser main;
+    private AntiAdvertiser main;
 
-    public AdvertiserMethods(AntiAdveritser main) {
+    public AdvertiserMethods(AntiAdvertiser main) {
         this.main = main;
     }
 
