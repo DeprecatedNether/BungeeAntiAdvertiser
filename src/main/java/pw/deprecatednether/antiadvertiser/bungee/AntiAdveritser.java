@@ -120,4 +120,10 @@ public class AntiAdveritser extends Plugin {
     public String getTldRegex() {
         return tldRegex;
     }
+
+    public void sendDebug(String message) {
+        if (config.getBoolean("debug")) {
+            getLogger().info("[AntiAdvertiser Debug] " + message);
+        }
+    }
 }
