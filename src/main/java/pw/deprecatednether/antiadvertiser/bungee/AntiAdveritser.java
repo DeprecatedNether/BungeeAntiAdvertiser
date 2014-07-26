@@ -31,6 +31,7 @@ import java.io.*;
 public class AntiAdveritser extends Plugin {
     private File detections;
     private Configuration tlds;
+    private Configuration config;
 
     @Override
     public void onEnable() {
@@ -52,6 +53,18 @@ public class AntiAdveritser extends Plugin {
             tlds = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(getDataFolder(), "tlds.yml"));
         } catch (IOException ioe) {
             getLogger().severe("An error occurred trying to load the TLDs, AntiAdvertiser will not function!");
+            ioe.printStackTrace();
+        }
+        try { // Different try/catch so that if one fails, the other one doesn't
+            if (!configFile.exists()) {
+                configFile.createNewFile();
+                InputStream in = getResourceAsStream("config.yml");
+                OutputStream out = new FileOutputStream(configFile);
+                ByteStreams.copy(in, out);
+            }
+            config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(getDataFolder(), "config.yml"));
+        } catch (IOException ioe) {
+            getLogger().severe("An error occurred trying to load the configuration file!");
             ioe.printStackTrace();
         }
     }
