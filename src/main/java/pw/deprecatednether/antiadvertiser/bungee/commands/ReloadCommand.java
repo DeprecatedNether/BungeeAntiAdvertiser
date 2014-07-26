@@ -60,6 +60,7 @@ public class ReloadCommand extends Command {
             sender.sendMessage(new ComponentBuilder("If you're trying to reload the AntiAdvertiser configuration for the Bukkit server, try '/antiadvertiser:aareload'.").color(ChatColor.GREEN).create());
         } catch (IOException ioe) {
             ioe.printStackTrace();
+            sender.sendMessage(new ComponentBuilder("An error occurred trying to reload the configuration file, please check the console for details.").color(ChatColor.RED).create());
         }
     }
 }
