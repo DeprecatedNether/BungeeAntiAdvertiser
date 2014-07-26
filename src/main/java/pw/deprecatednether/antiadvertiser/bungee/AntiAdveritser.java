@@ -19,6 +19,8 @@
 package pw.deprecatednether.antiadvertiser.bungee;
 
 import com.google.common.io.ByteStreams;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
@@ -125,5 +127,16 @@ public class AntiAdveritser extends Plugin {
         if (config.getBoolean("debug")) {
             getLogger().info("[AntiAdvertiser Debug] " + message);
         }
+    }
+
+    /**
+     * Colours the string and turns variables into what they represent.
+     * @param string The string to prepare.
+     * @param player The instance of ProxiedPlayer whose name is represented by {player}
+     * @param message The message, represented by {message}, sent by the player
+     * @return The prepared string
+     */
+    public static String prepareString(String string, ProxiedPlayer player, String message) {
+        return ChatColor.translateAlternateColorCodes('&', string).replace("{player}", player.getName()).replace("{display}", player.getDisplayName()).replace("{message}", message);
     }
 }
