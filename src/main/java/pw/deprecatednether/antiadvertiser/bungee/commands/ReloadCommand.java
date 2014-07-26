@@ -18,9 +18,18 @@
 
 package pw.deprecatednether.antiadvertiser.bungee.commands;
 
+import com.google.common.io.ByteStreams;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Command;
+import net.md_5.bungee.config.ConfigurationProvider;
+import net.md_5.bungee.config.YamlConfiguration;
 import pw.deprecatednether.antiadvertiser.bungee.AntiAdveritser;
+
+import java.io.*;
 
 public class ReloadCommand extends Command {
     private AntiAdveritser main;
@@ -31,6 +40,26 @@ public class ReloadCommand extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-
+        if (!sender.hasPermission("antiadvertiser.reload")) {
+            TextComponent message = new TextComponent("You do not have access to this command.");
+            message.setColor(ChatColor.RED);
+            message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("You need the permission node antiadvertiser.reload").color(ChatColor.GREEN).create()));
+            sender.sendMessage(message);
+            return;
+        }
+        try {
+            File configFile = new File(main.getDataFolder(), "config.yml");
+            if (!configFile.exists()) {
+                configFile.createNewFile();
+                InputStream in = main.getResourceAsStream("config.yml");
+                OutputStream out = new FileOutputStream(configFile);
+                ByteStreams.copy(in, out);
+            }
+            main.config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File(main.getDataFolder(), "config.yml"));
+            sender.sendMessage(new ComponentBuilder("AntiAdvertiser configuration on the BungeeCord server has been reloaded successfully.").color(ChatColor.DARK_GREEN).create());
+            sender.sendMessage(new ComponentBuilder("If you're trying to reload the AntiAdvertiser configuration for the Bukkit server, try '/antiadvertiser:aareload'.").color(ChatColor.GREEN).create());
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 }

@@ -37,7 +37,7 @@ import java.util.List;
 public class AntiAdveritser extends Plugin {
     private File detections;
     private Configuration tlds;
-    private Configuration config;
+    public Configuration config;
     private String tldRegex;
 
     @Override
