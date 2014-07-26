@@ -1,0 +1,17 @@
+on-detect:
+  kick: false
+messages:
+  moderator-message: "&c{player} tried to advertiser: &4{message}"
+  kick-message: "&cKicked for advertising"
+  player-message: "&cDo not advertise."
+whitelist:
+- spigotmc.org
+absolute-whitelist: []
+blacklist:
+- join my server
+checks:
+  blacklist: true
+  domain: true
+  ips: true
+monitor:
+  chat: true
